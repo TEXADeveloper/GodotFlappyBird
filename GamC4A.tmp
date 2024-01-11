@@ -1,0 +1,105 @@
+[gd_scene load_steps=9 format=3 uid="uid://b6ojddkk0f0hd"]
+
+[ext_resource type="Texture2D" uid="uid://ds1lysvr6li6o" path="res://Sprites/Fondo.png" id="2_p23wd"]
+[ext_resource type="Script" path="res://Scripts/AutoScroll.gd" id="3_hola8"]
+[ext_resource type="Script" path="res://Scripts/TubeManager.gd" id="3_webqe"]
+[ext_resource type="PackedScene" uid="uid://bhf0dthcerw1t" path="res://Objects/tubes.tscn" id="3_y604w"]
+[ext_resource type="Texture2D" uid="uid://cbj6ryso0tcfq" path="res://Sprites/Floor.png" id="4_k1akq"]
+[ext_resource type="PackedScene" uid="uid://c25l65pijw6iw" path="res://Objects/flappy.tscn" id="6_nri4f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lmwok"]
+size = Vector2(239.9, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7yxo4"]
+size = Vector2(1403, 78)
+
+[node name="Game" type="Node2D"]
+
+[node name="Fondo" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(576, 256)
+scale = Vector2(4, 4)
+texture = ExtResource("2_p23wd")
+script = ExtResource("3_hola8")
+speed = -10.0
+multiplier = 10.0
+
+[node name="Derecha" type="Sprite2D" parent="Fondo"]
+position = Vector2(288, 0)
+texture = ExtResource("2_p23wd")
+
+[node name="TubeManager" type="Node" parent="."]
+script = ExtResource("3_webqe")
+start_position = Vector2(1100, 300)
+max_y = 400.0
+min_y = 170.0
+time_between_spawns = 2.0
+
+[node name="Tubes1" parent="TubeManager" node_paths=PackedStringArray("tube_manager") instance=ExtResource("3_y604w")]
+visible = false
+position = Vector2(-100, 285)
+scale = Vector2(4, 4)
+tube_manager = NodePath("..")
+
+[node name="Tubes2" parent="TubeManager" node_paths=PackedStringArray("tube_manager") instance=ExtResource("3_y604w")]
+visible = false
+position = Vector2(-100, 285)
+scale = Vector2(4, 4)
+tube_manager = NodePath("..")
+
+[node name="Tubes3" parent="TubeManager" node_paths=PackedStringArray("tube_manager") instance=ExtResource("3_y604w")]
+visible = false
+position = Vector2(-100, 285)
+scale = Vector2(4, 4)
+tube_manager = NodePath("..")
+
+[node name="Tubes4" parent="TubeManager" node_paths=PackedStringArray("tube_manager") instance=ExtResource("3_y604w")]
+visible = false
+position = Vector2(-100, 285)
+scale = Vector2(4, 4)
+tube_manager = NodePath("..")
+
+[node name="Tubes5" parent="TubeManager" node_paths=PackedStringArray("tube_manager") instance=ExtResource("3_y604w")]
+visible = false
+position = Vector2(-100, 285)
+scale = Vector2(4, 4)
+tube_manager = NodePath("..")
+
+[node name="Tubes6" parent="TubeManager" node_paths=PackedStringArray("tube_manager") instance=ExtResource("3_y604w")]
+visible = false
+position = Vector2(-100, 285)
+scale = Vector2(4, 4)
+tube_manager = NodePath("..")
+
+[node name="Tubes7" parent="TubeManager" node_paths=PackedStringArray("tube_manager") instance=ExtResource("3_y604w")]
+visible = false
+position = Vector2(-100, 285)
+scale = Vector2(4, 4)
+tube_manager = NodePath("..")
+
+[node name="Floor" type="Sprite2D" parent="." groups=["Floor"]]
+z_index = 1
+position = Vector2(576, 850)
+scale = Vector2(8, 8)
+texture = ExtResource("4_k1akq")
+script = ExtResource("3_hola8")
+speed = -15.0
+multiplier = 10.0
+
+[node name="Derecha" type="Sprite2D" parent="Floor"]
+position = Vector2(144, 0)
+texture = ExtResource("4_k1akq")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor" groups=["Floor"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/StaticBody2D" groups=["Floor"]]
+position = Vector2(47.95, -31.5)
+shape = SubResource("RectangleShape2D_lmwok")
+
+[node name="Flappy" parent="." instance=ExtResource("6_nri4f")]
+
+[node name="Roof" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Roof"]
+position = Vector2(691.5, -41)
+shape = SubResource("RectangleShape2D_7yxo4")

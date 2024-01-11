@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://c25l65pijw6iw"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_djmfq"]
+[ext_resource type="Texture2D" uid="uid://bmo1nmch4v6xe" path="res://Sprites/Pajarito xD/yellowbird-downflap.png" id="3_ef2of"]
+[ext_resource type="Texture2D" uid="uid://chl5jk8yqunkm" path="res://Sprites/Pajarito xD/yellowbird-midflap.png" id="4_n0y8b"]
+[ext_resource type="Texture2D" uid="uid://dyotuukxnyexf" path="res://Sprites/Pajarito xD/yellowbird-upflap.png" id="5_4ie06"]
+[ext_resource type="AudioStream" uid="uid://boeshv2nfhv3w" path="res://audio/wing.ogg" id="5_yaf6c"]
+[ext_resource type="AudioStream" uid="uid://dklxccjoaqnce" path="res://audio/hit.ogg" id="6_kyjsy"]
+[ext_resource type="AudioStream" uid="uid://doiiv17uii368" path="res://audio/die.ogg" id="7_twa3f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nt1jg"]
+size = Vector2(84, 58)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_el5hu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ef2of")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n0y8b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4ie06")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Flappy" type="RigidBody2D" node_paths=PackedStringArray("wing_player", "hit_player", "die_player") groups=["Player"]]
+position = Vector2(200, 77)
+mass = 5.0
+max_contacts_reported = 1
+contact_monitor = true
+lock_rotation = true
+linear_damp_mode = 1
+script = ExtResource("1_djmfq")
+jump_force = 400.0
+wing_player = NodePath("WingSound")
+min_pitch = 0.85
+max_pitch = 1.15
+hit_player = NodePath("HitSound")
+die_player = NodePath("DieSound")
+
+[node name="Collision" type="CollisionShape2D" parent="." groups=["Player"]]
+shape = SubResource("RectangleShape2D_nt1jg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_el5hu")
+autoplay = "default"
+
+[node name="WingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_yaf6c")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_kyjsy")
+
+[node name="DieSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_twa3f")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

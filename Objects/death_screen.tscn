@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://mus27svkrxif"]
+
+[ext_resource type="Script" path="res://Scripts/DeathScreen.gd" id="1_nj67s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_at50v"]
+bg_color = Color(0, 0, 0, 0.588235)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wrm44"]
+font_size = 100
+font_color = Color(1, 0, 0, 1)
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kvqak"]
+font_size = 32
+
+[node name="DeathScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nj67s")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_at50v")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -272.5
+offset_top = -101.0
+offset_right = 272.5
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+text = "Game Over"
+label_settings = SubResource("LabelSettings_wrm44")
+horizontal_alignment = 1
+justification_flags = 0
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = 43.0
+offset_right = 132.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Tap to play again"
+label_settings = SubResource("LabelSettings_kvqak")

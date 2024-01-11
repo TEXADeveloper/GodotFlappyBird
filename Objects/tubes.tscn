@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://bhf0dthcerw1t"]
+
+[ext_resource type="PackedScene" uid="uid://dt0pptodif6sn" path="res://Objects/tube.tscn" id="1_htt4s"]
+[ext_resource type="Script" path="res://Scripts/Tube.gd" id="1_n36rb"]
+[ext_resource type="Script" path="res://Scripts/ScoreDetection.gd" id="3_wfd7w"]
+[ext_resource type="AudioStream" uid="uid://drehejg0hr6lk" path="res://audio/point.ogg" id="4_h51ij"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nxso3"]
+size = Vector2(4, 53)
+
+[node name="Tubes" type="Node2D" groups=["Tube"]]
+script = ExtResource("1_n36rb")
+speed = -15.0
+min_x = -60.0
+
+[node name="upper_tube" parent="." groups=["Tube"] instance=ExtResource("1_htt4s")]
+z_index = -1
+position = Vector2(0, -95)
+
+[node name="bottom_tube" parent="." groups=["Tube"] instance=ExtResource("1_htt4s")]
+z_index = -1
+position = Vector2(0, 95)
+rotation = 3.14159
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("tube", "stream_player") groups=["Score"]]
+collision_layer = 0
+monitorable = false
+script = ExtResource("3_wfd7w")
+tube = NodePath("..")
+stream_player = NodePath("AudioStreamPlayer2D")
+min_pitch = 0.9
+max_pitch = 1.1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["Score"]]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_nxso3")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Area2D"]
+stream = ExtResource("4_h51ij")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

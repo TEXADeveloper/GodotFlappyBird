@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://b6ojddkk0f0hd"]
+
+[ext_resource type="Texture2D" uid="uid://ca5iunkaoyn1g" path="res://Sprites/Flappy Bird.png" id="1_i4rdu"]
+[ext_resource type="Texture2D" uid="uid://ds1lysvr6li6o" path="res://Sprites/Fondo.png" id="2_p23wd"]
+[ext_resource type="Script" path="res://Scripts/AutoScroll.gd" id="3_hola8"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="4_cm3c7"]
+[ext_resource type="Texture2D" uid="uid://cbj6ryso0tcfq" path="res://Sprites/Floor.png" id="4_k1akq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lmwok"]
+size = Vector2(239.9, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nt1jg"]
+size = Vector2(84, 58)
+
+[node name="Game" type="Node2D"]
+
+[node name="Fondo" type="Sprite2D" parent="."]
+position = Vector2(576, 256)
+scale = Vector2(4, 4)
+texture = ExtResource("2_p23wd")
+script = ExtResource("3_hola8")
+speed = -10.0
+multiplier = 10.0
+
+[node name="Derecha" type="Sprite2D" parent="Fondo"]
+position = Vector2(288, 0)
+texture = ExtResource("2_p23wd")
+
+[node name="Floor" type="Sprite2D" parent="."]
+position = Vector2(576, 850)
+scale = Vector2(8, 8)
+texture = ExtResource("4_k1akq")
+script = ExtResource("3_hola8")
+speed = -15.0
+multiplier = 10.0
+
+[node name="Derecha" type="Sprite2D" parent="Floor"]
+position = Vector2(144, 0)
+texture = ExtResource("4_k1akq")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/StaticBody2D"]
+position = Vector2(47.95, -31.5)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_lmwok")
+
+[node name="Flappy" type="RigidBody2D" parent="."]
+position = Vector2(200, 77)
+mass = 5.0
+lock_rotation = true
+script = ExtResource("4_cm3c7")
+jump_force = 20.0
+
+[node name="Collision" type="CollisionShape2D" parent="Flappy"]
+shape = SubResource("RectangleShape2D_nt1jg")
+
+[node name="Sprite" type="Sprite2D" parent="Flappy"]
+scale = Vector2(5, 5)
+texture = ExtResource("1_i4rdu")
